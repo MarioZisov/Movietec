@@ -17,6 +17,8 @@ namespace Movietec.Models.DbModels
 
         public bool IsSubscribedToNewsletter { get; set; }
 
+        public DateTime? BirthDate { get; set; }
+
         public virtual MembershipType MembershipType { get; set; }
 
         public int MembershipTypeId { get; set; }

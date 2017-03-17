@@ -1,0 +1,23 @@
+﻿@using Movietec.Models.DbModels
+@model IEnumerable<Movie>
+
+<h2>Movies</h2>
+@if (!Model.Any())
+{
+    <p>We don't have any movies yet.</p>
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+            {
+            <tr>
+                <td>@Html.ActionLink(movie.Title, "Details", new { id = movie.Id })</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -18,6 +18,10 @@ namespace Movietec.Data
 
         public virtual DbSet<Customer> Customers { get; set; }
 
+        public virtual DbSet<MembershipType> MembershipTypes { get; set; }
+
+        public virtual DbSet<Movie> Movies { get; set; }
+
         public static MovietecContext Create()
         {
             return new MovietecContext();

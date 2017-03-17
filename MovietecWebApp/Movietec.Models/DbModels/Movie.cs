@@ -7,18 +7,20 @@ using System.Threading.Tasks;
 
 namespace Movietec.Models.DbModels
 {
-    public class MembershipType
+    public class Movie
     {
         public int Id { get; set; }
 
         [Required]
-        [StringLength(255)]
-        public string Name { get; set; }
+        public string Title { get; set; }
 
-        public decimal SignUpFee { get; set; }
+        [Required]
+        public string Genre { get; set; }
 
-        public byte DurationInMonths { get; set; }
+        public DateTime ReleaseDate { get; set; }
 
-        public byte DiscountRate { get; set; }
+        public DateTime DateAdded { get; set; }
+
+        public int NumberInStock { get; set; }
     }
 }
