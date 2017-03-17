@@ -17,10 +17,12 @@ namespace Movietec.Models.DbModels
 
         public bool IsSubscribedToNewsletter { get; set; }
 
+        [Display(Name = "Birth Date")]
         public DateTime? BirthDate { get; set; }
 
         public virtual MembershipType MembershipType { get; set; }
 
+        [Display(Name = "Membership Type")]
         public int MembershipTypeId { get; set; }
     }
 }

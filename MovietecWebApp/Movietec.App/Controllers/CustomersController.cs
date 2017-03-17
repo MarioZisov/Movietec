@@ -1,5 +1,7 @@
 ﻿using Movietec.App.Models;
 using Movietec.Data;
+using Movietec.Models.DbModels;
+using Movietec.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +13,56 @@ namespace Movietec.App.Controllers
     public class CustomersController : Controller
     {
         private MovietecContext context;
-        
+
         public CustomersController()
         {
             this.context = new MovietecContext();
+        }
+
+        public ActionResult New()
+        {
+            var membershtipTypes = this.context.MembershipTypes.ToList();
+            var viewModel = new CustomerFormViewModel
+            {
+                MembershipTypes = membershtipTypes
+            };
+
+            return View("CustomerForm", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Save(Customer customer)
+        {
+            if (customer.Id == 0)
+                this.context.Customers.Add(customer);
+            else
+            {
+                var dbCustomer = this.context.Customers.First(c => c.Id == customer.Id);
+
+                dbCustomer.Name = customer.Name;
+                dbCustomer.MembershipTypeId = customer.MembershipTypeId;
+                dbCustomer.BirthDate = customer.BirthDate;
+                dbCustomer.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
+            }
+            
+            this.context.SaveChanges();
+
+            return this.RedirectToAction("All");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var customer = this.context.Customers.Find(id);
+            if (customer == null)
+                return HttpNotFound();
+
+            var viewModel = new CustomerFormViewModel
+            {
+                Customer = customer,
+                MembershipTypes = this.context.MembershipTypes.ToList()
+            };
+
+            return View("CustomerForm", viewModel);
         }
 
         public ActionResult All()
