@@ -2,6 +2,7 @@
 @model IEnumerable<Movie>
 
 <h2>Movies</h2>
+@Html.ActionLink("Add Movie", "New", "Movies", null, new { @class = "btn btn-success" })
 @if (!Model.Any())
 {
     <p>We don't have any movies yet.</p>
@@ -10,6 +11,7 @@
     <thead>
         <tr>
             <th>Title</th>
+            <th>Genre</th>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +19,7 @@
             {
             <tr>
                 <td>@Html.ActionLink(movie.Title, "Details", new { id = movie.Id })</td>
+                <td>@movie.Genre</td>
             </tr>
         }
     </tbody>

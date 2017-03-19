@@ -1,4 +1,5 @@
 ﻿using Movietec.Data;
+using Movietec.Models.DbModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,18 @@ namespace Movietec.App.Controllers
         {
             var movies = this.context.Movies.ToList();
             return this.View(movies);
+        }
+
+        public ActionResult New()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Save(Movie movie)
+        {
+            movie.DateAdded = DateTime.Now;
+            return RedirectToAction("All");
         }
 
         public ActionResult Details(int? id)
