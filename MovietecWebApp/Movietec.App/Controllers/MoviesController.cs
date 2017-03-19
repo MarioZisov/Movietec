@@ -25,14 +25,38 @@ namespace Movietec.App.Controllers
 
         public ActionResult New()
         {
-            return View();
+            return this.View("MovieForm");
         }
 
         [HttpPost]
         public ActionResult Save(Movie movie)
         {
-            movie.DateAdded = DateTime.Now;
-            return RedirectToAction("All");
+            if (movie.Id == 0)
+            {
+                movie.DateAdded = DateTime.Now;
+                this.context.Movies.Add(movie);
+            }
+            else
+            {
+                var dbMovie = this.context.Movies.First(m => m.Id == movie.Id);
+                dbMovie.Title = movie.Title;
+                dbMovie.Genre = movie.Genre;
+                dbMovie.ReleaseDate = movie.ReleaseDate;
+                dbMovie.NumberInStock = movie.NumberInStock;
+            }
+
+            this.context.SaveChanges();
+
+            return this.RedirectToAction("All");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var movie = this.context.Movies.Find(id);
+            if (movie == null)
+                return this.HttpNotFound();
+
+            return View("MovieForm", movie);
         }
 
         public ActionResult Details(int? id)
