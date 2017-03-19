@@ -1,5 +1,6 @@
 ﻿using Movietec.Data;
 using Movietec.Models.DbModels;
+using Movietec.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,10 @@ namespace Movietec.App.Controllers
 
         public ActionResult New()
         {
-            return this.View("MovieForm");
+            var genres = this.context.Genres.ToList();
+            var viewModel = new MovieFormViewModel {  Genres = genres };
+
+            return this.View("MovieForm", viewModel);
         }
 
         [HttpPost]
@@ -40,7 +44,7 @@ namespace Movietec.App.Controllers
             {
                 var dbMovie = this.context.Movies.First(m => m.Id == movie.Id);
                 dbMovie.Title = movie.Title;
-                dbMovie.Genre = movie.Genre;
+                dbMovie.GenreId = movie.GenreId;
                 dbMovie.ReleaseDate = movie.ReleaseDate;
                 dbMovie.NumberInStock = movie.NumberInStock;
             }
@@ -56,7 +60,14 @@ namespace Movietec.App.Controllers
             if (movie == null)
                 return this.HttpNotFound();
 
-            return View("MovieForm", movie);
+            var genres = this.context.Genres.ToList();
+            var viewModel = new MovieFormViewModel
+            {
+                Genres = genres,
+                Movie = movie
+            };
+
+            return View("MovieForm", viewModel);
         }
 
         public ActionResult Details(int? id)
