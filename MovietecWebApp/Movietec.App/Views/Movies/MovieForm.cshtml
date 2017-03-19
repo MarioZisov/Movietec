@@ -1,7 +1,7 @@
 ﻿@using Movietec.Models.ViewModels
 @model MovieFormViewModel
 
-@if (Model.Movie.Id == 0)
+@if (Model.Movie == null)
 {
     <h2>New Movie</h2>
 }
@@ -15,6 +15,7 @@ else
     <div class="form-group">
         @Html.LabelFor(m => m.Movie.Title)
         @Html.TextBoxFor(m => m.Movie.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Movie.Title)
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Movie.ReleaseDate)

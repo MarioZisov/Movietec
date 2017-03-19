@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Movietec.Models.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace Movietec.Models.DbModels
         public bool IsSubscribedToNewsletter { get; set; }
 
         [Display(Name = "Birth Date")]
+        [Required18YearsOld]
         public DateTime? BirthDate { get; set; }
 
         public virtual MembershipType MembershipType { get; set; }
