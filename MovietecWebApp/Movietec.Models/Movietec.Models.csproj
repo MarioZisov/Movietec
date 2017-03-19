@@ -42,10 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbModels\Customer.cs" />
+    <Compile Include="DbModels\Genre.cs" />
     <Compile Include="DbModels\MembershipType.cs" />
     <Compile Include="DbModels\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CustomerFormViewModel.cs" />
+    <Compile Include="ViewModels\MovieFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BindingModels\" />

@@ -86,6 +86,10 @@
     <Compile Include="Migrations\201703171321311_AddMovieModel.Designer.cs">
       <DependentUpon>201703171321311_AddMovieModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703191954490_ConflictResolving.cs" />
+    <Compile Include="Migrations\201703191954490_ConflictResolving.Designer.cs">
+      <DependentUpon>201703191954490_ConflictResolving.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MovietecContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -115,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703171321311_AddMovieModel.resx">
       <DependentUpon>201703171321311_AddMovieModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703191954490_ConflictResolving.resx">
+      <DependentUpon>201703191954490_ConflictResolving.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

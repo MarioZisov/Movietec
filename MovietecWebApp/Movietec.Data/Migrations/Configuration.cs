@@ -5,14 +5,15 @@ namespace Movietec.Data.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Movietec.Data.MovietecContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<MovietecContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            AutomaticMigrationDataLossAllowed = false;
         }
 
-        protected override void Seed(Movietec.Data.MovietecContext context)
+        protected override void Seed(MovietecContext context)
         {
         }
     }

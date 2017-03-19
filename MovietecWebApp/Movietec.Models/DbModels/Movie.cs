@@ -14,9 +14,6 @@ namespace Movietec.Models.DbModels
         [Required]
         public string Title { get; set; }
 
-        [Required]
-        public string Genre { get; set; }
-
         [Display(Name = "Release Date")]
         public DateTime ReleaseDate { get; set; }
 
@@ -24,5 +21,10 @@ namespace Movietec.Models.DbModels
 
         [Display(Name = "Number in Stock")]
         public int NumberInStock { get; set; }
+
+        public virtual Genre Genre { get; set; }
+
+        [Display(Name = "Genre")]
+        public int GenreId { get; set; }
     }
 }

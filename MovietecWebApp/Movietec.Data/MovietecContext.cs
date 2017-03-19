@@ -13,7 +13,7 @@ namespace Movietec.Data
     {
         public MovietecContext()
             : base("MovietecContext", throwIfV1Schema: false)
-        {
+        {            
         }
 
         public virtual DbSet<Customer> Customers { get; set; }
@@ -21,6 +21,8 @@ namespace Movietec.Data
         public virtual DbSet<MembershipType> MembershipTypes { get; set; }
 
         public virtual DbSet<Movie> Movies { get; set; }
+
+        public virtual DbSet<Genre> Genres { get; set; }
 
         public static MovietecContext Create()
         {
