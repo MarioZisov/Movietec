@@ -2,14 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Movietec.Models.DbModels
+namespace Movietec.Models.Dtos
 {
-    public class Customer
+    public class CustomerDto
     {
         public int Id { get; set; }
 
@@ -19,13 +18,9 @@ namespace Movietec.Models.DbModels
 
         public bool IsSubscribedToNewsletter { get; set; }
 
-        [Display(Name = "Birth Date")]
         [Required18YearsOld]
         public DateTime? BirthDate { get; set; }
 
-        public MembershipType MembershipType { get; set; }
-
-        [Display(Name = "Membership Type")]
         public int MembershipTypeId { get; set; }
     }
 }

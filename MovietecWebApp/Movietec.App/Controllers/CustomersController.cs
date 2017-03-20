@@ -77,7 +77,7 @@ namespace Movietec.App.Controllers
 
         public ActionResult All()
         {
-            var customers = this.context.Customers.ToList();
+            var customers = this.context.Customers.Include("MembershipType").ToList();
             return this.View(customers);
         }
 
