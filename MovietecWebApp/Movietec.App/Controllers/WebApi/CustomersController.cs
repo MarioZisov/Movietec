@@ -1,5 +1,7 @@
-﻿using Movietec.Data;
+﻿using AutoMapper;
+using Movietec.Data;
 using Movietec.Models.DbModels;
+using Movietec.Models.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,35 +22,41 @@ namespace Movietec.App.Controllers.WebApi
         }
 
         [HttpGet]
-        public IEnumerable<Customer> GetCustomers()
+        public IEnumerable<CustomerDto> GetCustomers()
         {
-            return this.context.Customers.ToList();
+            return this.context.Customers
+                .ToList()
+                .Select(Mapper.Map<Customer, CustomerDto>);
         }
 
         [HttpGet]
-        public Customer GetCustomers(int id)
+        public CustomerDto GetCustomers(int id)
         {
             var customer = this.context.Customers.Find(id);
             if (customer == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            return customer;
+            var customerDto = Mapper.Map<Customer, CustomerDto>(customer);
+            return customerDto;
         }
 
         [HttpPost]
-        public Customer CreateCustomer(Customer customer)
+        public CustomerDto CreateCustomer(CustomerDto customerDto)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
+            var customer = Mapper.Map<CustomerDto, Customer>(customerDto);
+
             this.context.Customers.Add(customer);
             this.context.SaveChanges();
 
-            return customer;
+            customerDto.Id = customer.Id;
+            return customerDto;
         }
 
         [HttpPut]
-        public void UpdateCustomer(int id, Customer customer)
+        public void UpdateCustomer(int id, CustomerDto customerDto)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -57,10 +65,7 @@ namespace Movietec.App.Controllers.WebApi
             if (dbCustomer == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            dbCustomer.Name = customer.Name;
-            dbCustomer.MembershipTypeId = customer.MembershipTypeId;
-            dbCustomer.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
-            dbCustomer.BirthDate = customer.BirthDate;
+            Mapper.Map(customerDto, dbCustomer);
 
             this.context.SaveChanges();
         }
