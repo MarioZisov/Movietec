@@ -27,14 +27,31 @@ namespace Movietec.App.Controllers
         public ActionResult New()
         {
             var genres = this.context.Genres.ToList();
-            var viewModel = new MovieFormViewModel {  Genres = genres };
+            var viewModel = new MovieFormViewModel
+            {
+                Movie = new Movie(),
+                Genres = genres
+            };
 
             return this.View("MovieForm", viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Movie movie)
         {
+            if (!ModelState.IsValid)
+            {
+                var genres = this.context.Genres.ToList();
+                var viewModel = new MovieFormViewModel
+                {
+                    Movie = movie,
+                    Genres = genres
+                };
+
+                return this.View("MovieForm", viewModel);
+            }
+
             if (movie.Id == 0)
             {
                 movie.DateAdded = DateTime.Now;

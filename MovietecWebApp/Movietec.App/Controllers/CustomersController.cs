@@ -24,6 +24,7 @@ namespace Movietec.App.Controllers
             var membershtipTypes = this.context.MembershipTypes.ToList();
             var viewModel = new CustomerFormViewModel
             {
+                Customer = new Customer(),
                 MembershipTypes = membershtipTypes
             };
 
@@ -31,6 +32,7 @@ namespace Movietec.App.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
             if (!ModelState.IsValid)

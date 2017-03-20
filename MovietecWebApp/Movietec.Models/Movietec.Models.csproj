@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\Required18YearsOldAttribute.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="DbModels\Customer.cs" />
     <Compile Include="DbModels\Genre.cs" />
     <Compile Include="DbModels\MembershipType.cs" />
