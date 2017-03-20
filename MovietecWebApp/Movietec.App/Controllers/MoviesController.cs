@@ -27,9 +27,8 @@ namespace Movietec.App.Controllers
         public ActionResult New()
         {
             var genres = this.context.Genres.ToList();
-            var viewModel = new MovieFormViewModel
+            var viewModel = new MovieFormViewModel()
             {
-                Movie = new Movie(),
                 Genres = genres
             };
 
@@ -42,11 +41,9 @@ namespace Movietec.App.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var genres = this.context.Genres.ToList();
-                var viewModel = new MovieFormViewModel
+                var viewModel = new MovieFormViewModel(movie)
                 {
-                    Movie = movie,
-                    Genres = genres
+                    Genres = this.context.Genres.ToList()
                 };
 
                 return this.View("MovieForm", viewModel);
@@ -77,11 +74,9 @@ namespace Movietec.App.Controllers
             if (movie == null)
                 return this.HttpNotFound();
 
-            var genres = this.context.Genres.ToList();
-            var viewModel = new MovieFormViewModel
+            var viewModel = new MovieFormViewModel(movie)
             {
-                Genres = genres,
-                Movie = movie
+                Genres = this.context.Genres.ToList()
             };
 
             return View("MovieForm", viewModel);

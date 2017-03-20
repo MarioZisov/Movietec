@@ -22,9 +22,8 @@ namespace Movietec.App.Controllers
         public ActionResult New()
         {
             var membershtipTypes = this.context.MembershipTypes.ToList();
-            var viewModel = new CustomerFormViewModel
+            var viewModel = new CustomerFormViewModel()
             {
-                Customer = new Customer(),
                 MembershipTypes = membershtipTypes
             };
 
@@ -37,10 +36,9 @@ namespace Movietec.App.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var viewModel = new CustomerFormViewModel
+                var viewModel = new CustomerFormViewModel(customer)
                 {
-                    MembershipTypes = this.context.MembershipTypes.ToList(),
-                    Customer = customer
+                    MembershipTypes = this.context.MembershipTypes.ToList()
                 };
 
                 return this.View("CustomerForm", viewModel);
@@ -69,9 +67,8 @@ namespace Movietec.App.Controllers
             if (customer == null)
                 return HttpNotFound();
 
-            var viewModel = new CustomerFormViewModel
+            var viewModel = new CustomerFormViewModel(customer)
             {
-                Customer = customer,
                 MembershipTypes = this.context.MembershipTypes.ToList()
             };
 
