@@ -23,7 +23,7 @@ else
                     <td>@Html.ActionLink(customer.Name, "Edit", new { id = customer.Id })</td>
                     <td>@customer.MembershipType.Name</td>
                     <td>
-                        <button customer-id="@customer.Id" class="btn-link js-delete">Delete</button>
+                        <button customer-id="@customer.Id" customer-name="@customer.Name" class="btn-link js-delete">Delete</button>
                     </td>
                 </tr>
             }
@@ -38,15 +38,17 @@ else
             $("#customers .js-delete").on("click", function () {
                 var button = $(this);
 
-                if (confirm("Are you sure?")) {
-                    $.ajax({
-                        url: "/api/customers/" + button.attr("customer-id"),
-                        method: "DELETE",
-                        success: function () {
-                            button.parents("tr").remove();
-                        }
-                    })
-                }
+                bootbox.confirm("Are you sure you want to delete " + button.attr("customer-name") + "?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/customers/" + button.attr("customer-id"),
+                            method: "DELETE",
+                            success: function () {
+                                button.parents("tr").remove();
+                            }
+                        })
+                    }
+                })
             })
         })
     </script>
