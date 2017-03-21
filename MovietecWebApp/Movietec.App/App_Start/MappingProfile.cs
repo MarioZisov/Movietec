@@ -13,7 +13,10 @@ namespace Movietec.App.App_Start
         public MappingProfile()
         {
             this.CreateMap<Customer, CustomerDto>();
-            this.CreateMap<CustomerDto, Customer>();
+            this.CreateMap<CustomerDto, Customer>().ForMember(c => c.Id, opt => opt.Ignore());
+
+            this.CreateMap<Movie, MovieDto>();
+            this.CreateMap<MovieDto, Movie>().ForMember(m => m.Id, opt => opt.Ignore());
         }
     }
 }
