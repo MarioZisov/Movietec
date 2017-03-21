@@ -22,29 +22,31 @@ namespace Movietec.App.Controllers.WebApi
         }
 
         [HttpGet]
-        public IEnumerable<CustomerDto> GetCustomers()
+        public IHttpActionResult GetCustomers()
         {
-            return this.context.Customers
+            var customersDto = this.context.Customers
                 .ToList()
                 .Select(Mapper.Map<Customer, CustomerDto>);
+
+            return this.Ok(customersDto);
         }
 
         [HttpGet]
-        public CustomerDto GetCustomers(int id)
+        public IHttpActionResult GetCustomers(int id)
         {
             var customer = this.context.Customers.Find(id);
             if (customer == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return this.NotFound();
 
             var customerDto = Mapper.Map<Customer, CustomerDto>(customer);
-            return customerDto;
+            return this.Ok(customerDto);
         }
 
         [HttpPost]
-        public CustomerDto CreateCustomer(CustomerDto customerDto)
+        public IHttpActionResult CreateCustomer(CustomerDto customerDto)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return this.BadRequest();
 
             var customer = Mapper.Map<CustomerDto, Customer>(customerDto);
 
@@ -52,33 +54,37 @@ namespace Movietec.App.Controllers.WebApi
             this.context.SaveChanges();
 
             customerDto.Id = customer.Id;
-            return customerDto;
+            return this.Created(new Uri(this.Request.RequestUri + "/" + customer.Id), customerDto);
         }
 
         [HttpPut]
-        public void UpdateCustomer(int id, CustomerDto customerDto)
+        public IHttpActionResult UpdateCustomer(int id, CustomerDto customerDto)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return this.BadRequest();
 
             var dbCustomer = this.context.Customers.Find(id);
             if (dbCustomer == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return this.NotFound();
 
             Mapper.Map(customerDto, dbCustomer);
 
             this.context.SaveChanges();
+
+            return this.Ok();
         }
 
         [HttpDelete]
-        public void DeleteCustomer(int id)
+        public IHttpActionResult DeleteCustomer(int id)
         {
             var customer = this.context.Customers.Find(id);
             if (customer == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return this.NotFound();
 
             this.context.Customers.Remove(customer);
             this.context.SaveChanges();
+
+            return this.Ok();
         }
     }
 }

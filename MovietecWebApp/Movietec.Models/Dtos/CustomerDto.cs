@@ -18,7 +18,6 @@ namespace Movietec.Models.Dtos
 
         public bool IsSubscribedToNewsletter { get; set; }
 
-        [Required18YearsOld]
         public DateTime? BirthDate { get; set; }
 
         public int MembershipTypeId { get; set; }
